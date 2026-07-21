@@ -4,6 +4,7 @@ import AboutSection from '@/components/AboutSection';
 import ProductCatalog from '@/components/ProductCatalog';
 import InquiryForm from '@/components/InquiryForm';
 import Footer from '@/components/Footer';
+import FloatingChannels from '@/components/FloatingChannels';
 import styles from './page.module.css';
 
 export default function Home() {
@@ -29,6 +30,9 @@ export default function Home() {
 
       {/* Brand Footer */}
       <Footer />
+
+      {/* Floating Inquiry & SNS Channels (Naver TalkTalk, KakaoTalk, YouTube) */}
+      <FloatingChannels />
     </div>
   );
 }
