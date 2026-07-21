@@ -62,14 +62,31 @@ export default function InquiryForm() {
     return total.toLocaleString();
   };
 
-  const onSubmit: SubmitHandler<FormInput> = (data) => {
+  const onSubmit: SubmitHandler<FormInput> = async (data) => {
     setLoading(true);
-    // Simulate API request
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      const response = await fetch('/api/inquiry', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || '견적 신청 중 오류가 발생했습니다.');
+      }
+
       setIsSubmitted(true);
-      console.log('Submitted Inquiry Data:', data);
-    }, 1500);
+      console.log('Submitted Inquiry Data Successfully:', result);
+    } catch (error: any) {
+      alert(error.message || '견적 신청에 실패했습니다. 카카오톡 문의나 고객센터로 연락해 주세요.');
+      console.error('Inquiry Submission Error:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
